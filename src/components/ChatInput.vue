@@ -25,16 +25,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.chatinput {
-  position: fixed;
-  bottom: 0;
-  padding: 1px;
-}
-
-.form-control:focus, .btn:focus {
-  box-shadow: none;
-  outline: none;
-}
-</style>

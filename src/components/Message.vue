@@ -1,6 +1,8 @@
 <template>
-  <div class="message">
-    {{ text }}
+  <div class="messageContainer">
+    <div class="message" v-bind:class="leftOrRight">
+      {{ text }}
+    </div>
   </div>
 </template>
 
@@ -10,13 +12,11 @@ export default {
   props: {
     text: String,
     fromUser: Boolean
+  },
+  computed: {
+    leftOrRight: function () {
+      if (this.fromUser) return "msgRight"; else return "msgLeft"
+    }
   }
 }
 </script>
-
-<style scoped>
-.message {
-  width: 30vw;
-  border: 1px solid #000;
-}
-</style>
