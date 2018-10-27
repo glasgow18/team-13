@@ -14,6 +14,7 @@ export default {
   name: 'ChatInput',
   methods: {
     sendMsg: function () {
+      this.$emit('msg', this.currentMsg)
       this.currentMsg=""
     }
   },
