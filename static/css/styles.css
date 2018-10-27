@@ -1,0 +1,32 @@
+.message {
+  min-width: 10vw;
+  max-width: 40vw;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #000;
+}
+
+.messageContainer {
+  width: 100vw;
+  overflow: auto;
+}
+
+.msgRight {
+  float: right;
+}
+
+.msgLeft {
+  float: left;
+}
+
+.chatinput {
+  position: fixed;
+  bottom: 0;
+  padding: 1px;
+}
+
+.form-control:focus, .btn:focus {
+  box-shadow: none;
+  outline: none;
+}

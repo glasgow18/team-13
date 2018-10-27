@@ -1,6 +1,8 @@
 <template>
-  <div class="message">
-    {{ msg }}
+  <div class="messageContainer">
+    <div class="message" v-bind:class="leftOrRight">
+      {{ text }}
+    </div>
   </div>
 </template>
 
@@ -8,15 +10,13 @@
 export default {
   name: 'Message',
   props: {
-    msg: String
+    text: String,
+    fromUser: Boolean
+  },
+  computed: {
+    leftOrRight: function () {
+      if (this.fromUser) return "msgRight"; else return "msgLeft"
+    }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.message {
-  width: 30vw;
-  border: 1px solid #000;
-}
-</style>
