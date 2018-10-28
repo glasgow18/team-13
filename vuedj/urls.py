@@ -21,5 +21,5 @@ from chatbot import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='home'),
-    url(r'^sendMessage/$', views.message)
+    url(r'^sendMessage$', views.message)
 ]

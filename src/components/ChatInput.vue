@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent="sendMsg">
+    {{response}}
     <div class="chatinput input-group">
       <input v-model="currentMsg" type="text" class="form-control" placeholder="Message" aria-describedby="button-addon2" autofocus>
       <div class="input-group-append">
@@ -21,14 +22,15 @@ export default {
       axios.post('/sendMessage', {
         text: this.currentMsg
       })
-      .then(function (response) {
-        this.$emit('msg', response.data, false)
+      .then((response) => {
+        this.$emit('msg', response.data.text, false)
       })
       .catch(function (error) {
         console.log(error)
       });
 
         this.currentMsg = ""
+
       }
     }
   },

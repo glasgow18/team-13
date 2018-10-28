@@ -9,8 +9,12 @@ with open(file, "r+") as f:
     f.write("{% load static %}\n" + s)
 
 for i, line in enumerate(fileinput.input(file, inplace=1)):
-    sys.stdout.write(line.replace('/static-vuedj/', "{% static '"))
+    sys.stdout.write(line.replace('/static-vuedj/', "{% static \""))
 for i, line in enumerate(fileinput.input(file, inplace=1)):
-    sys.stdout.write(line.replace('.css', ".css' %}"))
+  sys.stdout.write(line.replace('static/', "{% static \""))
 for i, line in enumerate(fileinput.input(file, inplace=1)):
-    sys.stdout.write(line.replace('.js', ".js' %}"))
+    sys.stdout.write(line.replace('.css', ".css\" %}"))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
+    sys.stdout.write(line.replace('.png', ".png\" %}"))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
+    sys.stdout.write(line.replace('.js', ".js\" %}"))
