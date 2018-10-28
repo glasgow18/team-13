@@ -169,15 +169,19 @@ def tagcheck(taglist):
   return ("","")
 
 
+def setupout(request):
+  return request
+
+
 #print("Hey there! What brings you to Health in Mind today? ")
 userin = input("Hey there! What brings you to Health in Mind today? ")
 tags = []
 location = []
 agegroup = []
 responseout, tag, context = response(userin)
-print(responseout)
+setupout(responseout)
 tags.append(tag)
-print("We offer a range of servises in different locations and for different age groups.")
+setupout("We offer a range of servises in different locations and for different age groups.")
 questions = [
   inquirer.List('size',
                 message="Where do you live?",
@@ -192,8 +196,8 @@ while(True):
   #tag check function in from modles
   servicematch, message = tagcheck(tags)
   if(servicematch != ""):
-    print(message)
-    print(servicematch)
+    setupout(message)
+    setupout(servicematch)
     confirm = {
       inquirer.Confirm('confirmed',
                      message="Is there anything else I could help you with?" ,
@@ -201,10 +205,11 @@ while(True):
     }
     confirmation = inquirer.prompt(confirm)
     userin == (confirmation["confirmed"])
-    print ("Happy to help, bye.")
+    setupout ("Happy to help, bye.")
     break;
 
   userin = input("Could you tell me more? ")
   responseout, tag, context = response(userin)
-  print(responseout)
+  setupout(responseout)
   tags.append(tag)
+
