@@ -10,19 +10,31 @@
 </template>
 
 <script>
+  import axios from 'axios'
 export default {
   name: 'ChatInput',
   methods: {
     sendMsg: function () {
       if (this.currentMsg.length>0) {
-        this.$emit('msg', this.currentMsg)
+        this.$emit('msg', this.currentMsg, true)
+
+      axios.post('/sendMessage', {
+        text: this.currentMsg
+      })
+      .then(function (response) {
+        this.$emit('msg', response.data, false)
+      })
+      .catch(function (error) {
+        console.log(error)
+      });
+
         this.currentMsg = ""
       }
     }
   },
   data() {
     return {
-      currentMsg: ""
+      currentMsg: '',
     }
   }
 }

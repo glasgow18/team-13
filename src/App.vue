@@ -24,9 +24,8 @@ export default {
     }
   },
   methods: {
-    createMsg: function (text) {
-      console.log('hi')
-      this.$set(this.messages, this.msgCount++, {"text": text, "fromUser": true})
+    createMsg: function (text, fromUser) {
+      this.$set(this.messages, this.msgCount++, {"text": text, "fromUser": fromUser})
     }
   }
 }
