@@ -8,7 +8,7 @@ from chatbot.models import Service, Tag, Location
 
 def populate():
     location_list = ["Edinburgh", "Midlothian", "East Lothian", "West Lothian", "Scottish Borders"]
-    tag_list = ["isolation", "lonely", "anxiety", "depression"]
+    tag_list = ["isolation", "lonely", "anxiety", "depression","panic"]
 
     for loc in location_list:
         add_location(loc)
@@ -25,8 +25,20 @@ def populate():
         {
             "name": "Anxiety and Depression Support Groups", "minAge": 18, "maxAge": 25,
             "locations": ["Edinburgh", "East Lothian", "West Lothian", "Scottish Borders"],
-            "tags": ["anxiety", "depression"], "description": "Anxiety and Depression Support Groups",
+            "tags": ["anxiety", "depression","panic"], "description": "Anxiety and Depression Support Groups",
             "link": "http://www.health-in-mind.org.uk/services/anxiety_and_depression_support_groups/d101/",
+        },
+        {
+            "name": "Men's SHARE", "minAge": 25, "maxAge": 50,
+            "locations": ["Midlothian"],
+            "tags": ["anxiety", "depression","panic"], "description": "Men's SHARE",
+            "link": "http://www.health-in-mind.org.uk/services/mens_share/d40/",
+        },
+        {
+            "name": "Wellbeing College", "minAge": 16, "maxAge": 75,
+            "locations": ["Scottish Borders"],
+            "tags": ["lonely", "depression","isolation"], "description": "Wellbeing College",
+            "link": "http://www.health-in-mind.org.uk/services/wellbeing_college/d110/",
         },
     ]
 

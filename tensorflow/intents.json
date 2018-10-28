@@ -30,6 +30,11 @@
         {"tag": "hours",
          "patterns": ["Can you tell me your opening hours","When are you open", "open"],
          "responses": ["Our opening times are from 9 to 5."]
+        },
+        {"tag": "scared",
+         "patterns" : ["I am feeling scared.", "I am frightened.","I have panic attacks."],
+         "responses" : ["Let me think about that."],
+         "context_set" : "location"
         }
    ]
 }
