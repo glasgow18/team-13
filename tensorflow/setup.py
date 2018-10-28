@@ -139,7 +139,8 @@ def response(sentence, userID='123', show_details=False):
                 if i['tag'] == results[0][0]:
                     # set context for this intent if necessary
                     if 'context_set' in i:
-                        if show_details: print ('context:', i['context_set'])
+                        if show_details:
+                            print ('context:', i['context_set'])
                         context[userID] = i['context_set']
 
                     # check if this intent is contextual and applies to this user's conversation
@@ -147,10 +148,15 @@ def response(sentence, userID='123', show_details=False):
                         (userID in context and 'context_filter' in i and i['context_filter'] == context[userID]):
                         if show_details: print ('tag:', i['tag'])
                         # a random response from the intent
+                        if results[0][1] < 0.6:
+                            return print("I am sorry but we do not have a suitable service at the moment")
                         return print(random.choice(i['responses']))
 
             results.pop(0)
 
-# response("I want to make new friends")
+response("I want to make new friends")
 
-# response("I live in Edinburgh")
+#response("I live in Edinburgh")
+
+response("I live on the Moon")
+
