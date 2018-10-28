@@ -1,6 +1,6 @@
 import os
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'health_in_mind.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'vuedj.settings')
 
 import django
 django.setup()

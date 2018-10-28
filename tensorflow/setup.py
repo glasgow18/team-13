@@ -4,6 +4,7 @@ import tflearn
 import tensorflow as tf
 import random
 import json
+from chatbot.models import Service
 
 from nltk.stem.lancaster import LancasterStemmer
 
@@ -114,7 +115,7 @@ model.load('./model.tflearn')
 # create a data structure to hold user context
 context = {}
 
-ERROR_THRESHOLD = 0.25
+ERROR_THRESHOLD = 0.6
 def classify(sentence):
     # generate probabilities from the model
     results = model.predict([bow(sentence, words)])[0]
@@ -137,6 +138,7 @@ def response(sentence, userID='123', show_details=False):
             for i in intents['intents']:
                 # find a tag matching the first result
                 if i['tag'] == results[0][0]:
+                    out = Service.objects.filter(tags__contains=results[0][0])
                     # set context for this intent if necessary
                     if 'context_set' in i:
                         if show_details: print ('context:', i['context_set'])
@@ -145,12 +147,19 @@ def response(sentence, userID='123', show_details=False):
                     # check if this intent is contextual and applies to this user's conversation
                     if not 'context_filter' in i or \
                         (userID in context and 'context_filter' in i and i['context_filter'] == context[userID]):
+                        o = out.objects.filter(locations__contains=results[1][0])
                         if show_details: print ('tag:', i['tag'])
                         # a random response from the intent
+                        if o:
+                            return print(o)
                         return print(random.choice(i['responses']))
 
             results.pop(0)
 
-# response("I want to make new friends")
+    else:
+      return print("I'm sorry but there are no services that match your request right now. "
+                   "Please check back for future updates!")
 
-# response("I live in Edinburgh")
+response("I want to make new friends")
+
+response("I live in Edinburgh")
