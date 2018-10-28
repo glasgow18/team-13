@@ -14,7 +14,12 @@
         },
         {"tag": "lonely",
          "patterns": ["Feel more connected and get out and about", "Get to know more people", "Make new friends", "lonely" ],
-         "responses": ["Where do you live?"],
+         "responses": ["Let me think about that."],
+         "context_set": "location"
+        },
+        {"tag": "depressed",
+         "patterns": ["I feel down", "I feel sad", "depressed" ],
+         "responses": ["Let me think about that."],
          "context_set": "location"
         },
         {"tag": "location",
