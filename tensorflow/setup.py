@@ -4,11 +4,8 @@ import tflearn
 import tensorflow as tf
 import random
 import json
-<<<<<<< HEAD
 from chatbot.models import Service
-=======
 import inquirer
->>>>>>> a1db0a4ea05e5fc21193a74c9d9a2af157a9f29e
 
 from nltk.stem.lancaster import LancasterStemmer
 
@@ -48,7 +45,6 @@ classes = sorted(list(set(classes)))
 
 
 
-#@ LEARNING
 
 training = []
 output = []
@@ -158,31 +154,26 @@ def response(sentence, userID='123', get_details=True):
                     # check if this intent is contextual and applies to this user's conversation
                     if not 'context_filter' in i or \
                         (userID in context and 'context_filter' in i and i['context_filter'] == context[userID]):
-<<<<<<< HEAD
+
                         o = out.objects.filter(locations__contains=results[1][0])
                         if show_details: print ('tag:', i['tag'])
                         # a random response from the intent
                         if o:
                             return print(o)
                         return print(random.choice(i['responses']))
-=======
+
                         if get_details: tagout = ('tag:', i['tag'])
                         # a random response from the intent
                         return (random.choice(i['responses']), tagout, contextout)
->>>>>>> a1db0a4ea05e5fc21193a74c9d9a2af157a9f29e
-
             results.pop(0)
 
     else:
       return print("I'm sorry but there are no services that match your request right now. "
                    "Please check back for future updates!")
 
-<<<<<<< HEAD
 response("I want to make new friends")
 
-response("I live in Edinburgh")
-=======
-# response("I live in Edinburgh")
+
 
 def tagcheck(taglist):
   #to be implemented to mach the tags with keywords in models
@@ -190,7 +181,6 @@ def tagcheck(taglist):
   return ("","")
 
 
-#@ MAIN
 print("Hey there! What brings you to Health in Mind today?")
 userin = "Hi"
 tags = []
@@ -230,4 +220,3 @@ while(True):
   responseout, tag, context = response(userin)
   print(responseout)
   tags.append(tag)
->>>>>>> a1db0a4ea05e5fc21193a74c9d9a2af157a9f29e
