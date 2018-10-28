@@ -4,7 +4,7 @@ import tflearn
 import tensorflow as tf
 import random
 import json
-from chatbot.models import Service
+#from chatbot.models import Service
 import inquirer
 
 from nltk.stem.lancaster import LancasterStemmer
@@ -143,7 +143,6 @@ def response(sentence, userID='123', get_details=True):
             for i in intents['intents']:
                 # find a tag matching the first result
                 if i['tag'] == results[0][0]:
-                    out = Service.objects.filter(tags__contains=results[0][0])
                     # set context for this intent if necessary
                     contextout = ""
                     tagout = ""
@@ -154,22 +153,11 @@ def response(sentence, userID='123', get_details=True):
                     # check if this intent is contextual and applies to this user's conversation
                     if not 'context_filter' in i or \
                         (userID in context and 'context_filter' in i and i['context_filter'] == context[userID]):
-
-                        o = out.objects.filter(locations__contains=results[1][0])
-                        if show_details: print ('tag:', i['tag'])
-                        # a random response from the intent
-                        if o:
-                            return print(o)
-                        return print(random.choice(i['responses']))
-
                         if get_details: tagout = ('tag:', i['tag'])
                         # a random response from the intent
                         return (random.choice(i['responses']), tagout, contextout)
-            results.pop(0)
 
-    else:
-      return print("I'm sorry but there are no services that match your request right now. "
-                   "Please check back for future updates!")
+            results.pop(0)
 
 response("I want to make new friends")
 
@@ -181,8 +169,8 @@ def tagcheck(taglist):
   return ("","")
 
 
-print("Hey there! What brings you to Health in Mind today?")
-userin = "Hi"
+#print("Hey there! What brings you to Health in Mind today? ")
+userin = input("Hey there! What brings you to Health in Mind today? ")
 tags = []
 location = []
 agegroup = []
@@ -216,7 +204,7 @@ while(True):
     print ("Happy to help, bye.")
     break;
 
-  userin = input("Could you tell me more?")
+  userin = input("Could you tell me more? ")
   responseout, tag, context = response(userin)
   print(responseout)
   tags.append(tag)
