@@ -4,14 +4,18 @@ import tflearn
 import tensorflow as tf
 import random
 import json
+<<<<<<< HEAD
 from chatbot.models import Service
+=======
+import inquirer
+>>>>>>> a1db0a4ea05e5fc21193a74c9d9a2af157a9f29e
 
 from nltk.stem.lancaster import LancasterStemmer
 
 nltk.download('punkt')
 stemmer = LancasterStemmer()
 
-with open('intents.json') as json_data:
+with open('team-13/tensorflow/intents.json') as json_data:
     intents = json.load(json_data)
 
 words = []
@@ -41,6 +45,10 @@ classes = sorted(list(set(classes)))
 # print (len(documents), "documents")
 # print (len(classes), "classes", classes)
 # print (len(words), "unique stemmed words", words)
+
+
+
+#@ LEARNING
 
 training = []
 output = []
@@ -88,6 +96,7 @@ model = tflearn.DNN(net, tensorboard_dir='tflearn_logs')
 model.fit(train_x, train_y, n_epoch=1000, batch_size=8, show_metric=True)
 model.save('model.tflearn')
 
+
 def clean_up_sentence(sentence):
     # tokenize the pattern
     sentence_words = nltk.word_tokenize(sentence)
@@ -129,7 +138,7 @@ def classify(sentence):
     # return tuple of intent and probability
     return return_list
 
-def response(sentence, userID='123', show_details=False):
+def response(sentence, userID='123', get_details=True):
     results = classify(sentence)
     # if we have a classification then find the matching intent tag
     if results:
@@ -140,19 +149,27 @@ def response(sentence, userID='123', show_details=False):
                 if i['tag'] == results[0][0]:
                     out = Service.objects.filter(tags__contains=results[0][0])
                     # set context for this intent if necessary
+                    contextout = ""
+                    tagout = ""
                     if 'context_set' in i:
-                        if show_details: print ('context:', i['context_set'])
+                        if get_details: contextout = ('context:', i['context_set'])
                         context[userID] = i['context_set']
 
                     # check if this intent is contextual and applies to this user's conversation
                     if not 'context_filter' in i or \
                         (userID in context and 'context_filter' in i and i['context_filter'] == context[userID]):
+<<<<<<< HEAD
                         o = out.objects.filter(locations__contains=results[1][0])
                         if show_details: print ('tag:', i['tag'])
                         # a random response from the intent
                         if o:
                             return print(o)
                         return print(random.choice(i['responses']))
+=======
+                        if get_details: tagout = ('tag:', i['tag'])
+                        # a random response from the intent
+                        return (random.choice(i['responses']), tagout, contextout)
+>>>>>>> a1db0a4ea05e5fc21193a74c9d9a2af157a9f29e
 
             results.pop(0)
 
@@ -160,6 +177,57 @@ def response(sentence, userID='123', show_details=False):
       return print("I'm sorry but there are no services that match your request right now. "
                    "Please check back for future updates!")
 
+<<<<<<< HEAD
 response("I want to make new friends")
 
 response("I live in Edinburgh")
+=======
+# response("I live in Edinburgh")
+
+def tagcheck(taglist):
+  #to be implemented to mach the tags with keywords in models
+  #return: check, message,
+  return ("","")
+
+
+#@ MAIN
+print("Hey there! What brings you to Health in Mind today?")
+userin = "Hi"
+tags = []
+location = []
+agegroup = []
+responseout, tag, context = response(userin)
+print(responseout)
+tags.append(tag)
+print("We offer a range of servises in different locations and for different age groups.")
+questions = [
+  inquirer.List('size',
+                message="Where do you live?",
+                choices=["Edinburgh", "Scottish Borders", "Midlothian", "West Lothian", "East Lothian", "other"],
+            ),
+]
+location = inquirer.prompt(questions)
+location = (location["size"])
+
+agegroup = input("What is your age? ")
+while(True):
+  #tag check function in from modles
+  servicematch, message = tagcheck(tags)
+  if(servicematch != ""):
+    print(message)
+    print(servicematch)
+    confirm = {
+      inquirer.Confirm('confirmed',
+                     message="Is there anything else I could help you with?" ,
+                     default=True),
+    }
+    confirmation = inquirer.prompt(confirm)
+    userin == (confirmation["confirmed"])
+    print ("Happy to help, bye.")
+    break;
+
+  userin = input("Could you tell me more?")
+  responseout, tag, context = response(userin)
+  print(responseout)
+  tags.append(tag)
+>>>>>>> a1db0a4ea05e5fc21193a74c9d9a2af157a9f29e
