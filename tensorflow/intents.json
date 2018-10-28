@@ -13,14 +13,18 @@
          "responses": ["Happy to help!", "Any time!", "My pleasure"]
         },
         {"tag": "lonely",
-         "patterns": ["Feel more connected and get out and about", "Get to know more people", "Make new friends" ],
+         "patterns": ["Feel more connected and get out and about", "Get to know more people", "Make new friends", "lonely" ],
          "responses": ["Where do you live?"],
          "context_set": "location"
         },
         {"tag": "location",
-         "patterns": ["Edinburgh", "Scottish Borders", "Midlothian"],
-         "responses": ["Check out: http://www.health-in-mind.org.uk/services/befriending/d13/"],
+         "patterns": ["Edinburgh", "Scottish Borders", "Midlothian", "West Lothian","East Lothian"],
+         "responses": ["Thank you."],
          "context_filter": "location"
+        },
+        {"tag": "hours",
+         "patterns": ["Can you tell me your opening hours","When are you open", "open"],
+         "responses": ["Our opening times are from 9 to 5."]
         }
    ]
 }
