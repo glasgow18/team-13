@@ -5,6 +5,7 @@
   margin: 0.5rem;
   border-radius: 0.5rem;
   border: 1px solid #000;
+  overflow: hidden;
 }
 
 .messageContainer {
@@ -13,17 +14,20 @@
 }
 
 .msgRight {
-  margin-right: 5rem;
-  float: right;
+  margin-left: 55vw;
+  float: left;
+  background-color: #f5a83d;
 }
 
 .msgLeft {
-  margin-left: 5rem;
-  float: left;
+  margin-right: 55vw;
+  float: right;
 }
 
 .chatinput {
   position: fixed;
+  width: 70vw;
+  margin-left: 15vw;
   bottom: 0;
   padding: 1px;
 }
@@ -31,4 +35,9 @@
 .form-control:focus, .btn:focus {
   box-shadow: none;
   outline: none;
+}
+
+.navbar {
+  background-color: #f6f6f6;
+  margin-bottom: 2rem;
 }

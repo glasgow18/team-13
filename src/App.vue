@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <chat-nav></chat-nav>
     <template v-for="msg in messages">
       <message :text="msg.text" :fromUser="msg.fromUser"/>
     </template>
@@ -10,12 +11,14 @@
 <script>
 import Message from './components/Message.vue'
 import ChatInput from './components/ChatInput.vue'
+import ChatNav from './components/ChatNav.vue'
 
 export default {
   name: 'app',
   components: {
     Message,
-    ChatInput
+    ChatInput,
+    ChatNav
   },
   data () {
     return {
