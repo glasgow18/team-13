@@ -25,7 +25,7 @@ class Service(models.Model):
     name = models.CharField(max_length=30)
     minAge = models.IntegerField()
     maxAge = models.IntegerField()
-    location = models.ManyToManyField(Location)
+    locations = models.ManyToManyField(Location)
     gender = models.CharField(max_length=10, blank=True, default='')
     tags = models.ManyToManyField(Tag)
     description = models.CharField(max_length=140)
