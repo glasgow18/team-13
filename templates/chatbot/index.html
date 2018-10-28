@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html>
+<head>
+  <title>Chatbot</title>
+  <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}"/>
+</head>
+<body>
+  <div class="container">
+    <header class="topper">
+    </header>
+    <div class="content">
+      <div class="main-window">
+        <div class="messages">
+          <ol class="messages-list">
+            <li class="chat-message chat-message-friend">
+              <div class="box">
+                Hi, start your message with letter '2' to message from other users side
+              </div>
+            </li>
+          </ol>
+        </div>
+        <div class="bar">
+          <div class="containter-chat">
+            <div class="chat-input" contenteditable></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="{% static "js/main.js" %}"></script>
+  <script src="{% static "js/jquery.min.js" %}"></script>
+</body>
+</html>
