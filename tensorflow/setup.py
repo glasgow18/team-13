@@ -4,7 +4,15 @@ import tflearn
 import tensorflow as tf
 import random
 import json
-#from chatbot.models import Service
+import os
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'vuedj.settings')
+
+import django
+django.setup()
+
+from chatbot.models import Service
+
 import inquirer
 
 from nltk.stem.lancaster import LancasterStemmer
@@ -12,7 +20,7 @@ from nltk.stem.lancaster import LancasterStemmer
 nltk.download('punkt')
 stemmer = LancasterStemmer()
 
-with open('team-13/tensorflow/intents.json') as json_data:
+with open('intents.json') as json_data:
     intents = json.load(json_data)
 
 words = []
@@ -159,14 +167,23 @@ def response(sentence, userID='123', get_details=True):
 
             results.pop(0)
 
-response("I want to make new friends")
-
+#response("I want to make new friends")
 
 
 def tagcheck(taglist):
-  #to be implemented to mach the tags with keywords in models
-  #return: check, message,
-  return ("","")
+    # matches the tags with services in models
+    check = ""
+    message = ""
+    d = Service.objects.filter(tags__tag__icontains=taglist[0][1]).values('description')
+    l = Service.objects.filter(tags__tag__icontains=taglist[0][1]).values('link')
+    des = d[0]['description']
+    link = l[0]['link']
+    if des != "":
+      check = "true"
+    message += "There is a " + des + " in your area! For more information click: " + link
+    message += "\nI hope you found this useful. Feel free to come again with more requests! Goodbye!"
+    # return: check, message
+    return check, message
 
 
 #print("Hey there! What brings you to Health in Mind today? ")
@@ -177,31 +194,30 @@ agegroup = []
 responseout, tag, context = response(userin)
 print(responseout)
 tags.append(tag)
-print("We offer a range of servises in different locations and for different age groups.")
-questions = [
-  inquirer.List('size',
-                message="Where do you live?",
-                choices=["Edinburgh", "Scottish Borders", "Midlothian", "West Lothian", "East Lothian", "other"],
-            ),
-]
-location = inquirer.prompt(questions)
-location = (location["size"])
-
+print("We offer a range of services in different locations and for different age groups.")
+# questions = [
+#   inquirer.List('size',
+#                 message="Where do you live?",
+#                 choices=["Edinburgh", "Scottish Borders", "Midlothian", "West Lothian", "East Lothian", "other"],
+#             ),
+# ]
+# location = inquirer.prompt(questions)
+# location = (location["size"])
+location = input("Which city do you live in? ")
 agegroup = input("What is your age? ")
 while(True):
   #tag check function in from modles
   servicematch, message = tagcheck(tags)
   if(servicematch != ""):
     print(message)
-    print(servicematch)
-    confirm = {
-      inquirer.Confirm('confirmed',
-                     message="Is there anything else I could help you with?" ,
-                     default=True),
-    }
-    confirmation = inquirer.prompt(confirm)
-    userin == (confirmation["confirmed"])
-    print ("Happy to help, bye.")
+    #confirm = {
+    #   inquirer.Confirm('confirmed',
+    #                  message="Is there anything else I could help you with?" ,
+    #                  default=True),
+    # }
+    # confirmation = inquirer.prompt(confirm)
+    # userin == (confirmation["confirmed"])
+    # print ("Happy to help, bye.")
     break;
 
   userin = input("Could you tell me more? ")
