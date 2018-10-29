@@ -4,7 +4,15 @@ import tflearn
 import tensorflow as tf
 import random
 import json
+import inquirer
 import os
+import sys
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+sys.path.append(BASE_DIR)
+
+INTENTS_DIR = os.path.join(BASE_DIR, 'tensorflow/intents.json')
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'vuedj.settings')
 
@@ -12,15 +20,12 @@ import django
 django.setup()
 
 from chatbot.models import Service
-
-import inquirer
-
 from nltk.stem.lancaster import LancasterStemmer
 
 nltk.download('punkt')
 stemmer = LancasterStemmer()
 
-with open('intents.json') as json_data:
+with open(INTENTS_DIR) as json_data:
     intents = json.load(json_data)
 
 words = []
